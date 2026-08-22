@@ -1,59 +1,184 @@
 <!doctype html>
+<!-- ============================================================
+     文档类型声明:告诉浏览器「这份文件是 HTML5 标准」。
+     必须写在第一行,没有它浏览器会进入「怪异模式」,排版容易错乱。
+     ============================================================ -->
+
+<!-- 根标签:整个网页的一切都包在这对 <html> ... </html> 里面。
+     lang="zh-CN" 告诉浏览器/搜索引擎「这个页面的语言是简体中文」。 -->
 <html lang="zh-CN">
+
+  <!-- <head>:页面的「设置区 / 后台」。
+       这里面的东西都不会直接显示在网页正文里,
+       它们只负责:配置页面 + 引入资源(CSS / 图标等)。 -->
   <head>
+
+    <!-- 字符编码声明:让浏览器用 UTF-8 来解读这份文件。
+         没有它,页面里的中文会变成乱码(如「锟斤拷」)。 -->
     <meta charset="UTF-8" />
+
+    <!-- 视口(viewport)设置:告诉手机浏览器「页面宽度按设备宽度来,初始缩放 1 倍」。
+         没有它,手机会按桌面宽度(约 980px)渲染再整体缩小,字会小到看不清。
+         它也是后面 css/responsive.css 里 @media 媒体查询能生效的前提。 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 浏览器标签页顶部 / 收藏夹里显示的标题。不显示在页面正文里。 -->
     <title>Zero to Tech · 个人主页</title>
+
+    <!-- ↓↓↓ 下面 8 行 <link>:把 8 个 CSS 样式文件「引入」进来(类似 C++ 的 #include)。↓↓↓
+         rel="stylesheet" 表示「这是个样式表」,href 是文件的相对路径(css/ 文件夹下的 xxx.css)。
+         顺序有讲究,不能乱排:后面的样式会覆盖前面同名的样式。
+           reset.css 先清默认样式 → variables.css 定义变量 → 各组件样式 → responsive.css 最后覆盖。 -->
+
+    <!-- 第 1 个:清空浏览器默认样式(边距、列表圆点、下划线等),统一盒模型。打地基,必须最先。 -->
     <link rel="stylesheet" href="css/reset.css" />
+
+    <!-- 第 2 个:定义 CSS 变量(颜色、字体、圆角、阴影等),全站共用。要在用到它的文件之前加载。 -->
     <link rel="stylesheet" href="css/variables.css" />
+
+    <!-- 第 3 个:整体布局 —— 页面背景、居中容器、12 列栅格骨架。 -->
     <link rel="stylesheet" href="css/layout.css" />
+
+    <!-- 第 4 个:顶部 hero 区(品牌名 + 大标题「关于我」)的样式,含渐变色大标题。 -->
     <link rel="stylesheet" href="css/hero.css" />
+
+    <!-- 第 5 个:顶部导航链接(个人主页 / 文字实验室)的样式,含高亮态 .active。 -->
     <link rel="stylesheet" href="css/nav.css" />
+
+    <!-- 第 6 个:卡片面板(panel)的基础样式 + 作品卡 + 身份卡的样式。 -->
     <link rel="stylesheet" href="css/cards.css" />
+
+    <!-- 第 7 个:文字实验室页面的表单、按钮、结果区的样式(本页其实没用到,为 text-lab.html 准备的)。 -->
     <link rel="stylesheet" href="css/lab.css" />
+
+    <!-- 第 8 个:响应式样式 —— 用 @media 在屏幕变窄时调整布局。必须最后加载,才能覆盖前面的默认样式。 -->
     <link rel="stylesheet" href="css/responsive.css" />
+
   </head>
+
+  <!-- <body>:页面的「正文区」。真正显示在网页上的内容,全写在这里面。 -->
   <body>
+
+    <!-- 第 1 层壳:app-shell(应用外壳)。对应 layout.css 里的 .app-shell,
+         负责整页的背景渐变(顶部白 → 下面浅灰)和最小高度。 -->
     <div class="app-shell">
+
+      <!-- 第 2 层壳:page-shell(页面外壳)。对应 layout.css 里的 .page-shell,
+           负责把内容「居中 + 限制最大宽度 980px」。 -->
       <div class="page-shell">
+
+        <!-- <main>:语义化标签,表示「页面的主要内容区」。搜索引擎/读屏软件靠它定位主内容。 -->
         <main class="page-content">
+
+          <!-- 第 3 层壳:dashboard-grid(仪表盘栅格)。对应 layout.css 里的 .dashboard-grid,
+               打开一个「12 列」的网格布局,下面每块卡片按占几列来摆放。 -->
           <section class="dashboard-grid">
 
-            <!-- ↓↓↓ 顶部 hero：品牌 + 导航 + 大标题 + 副标题 ↓↓↓ -->
+            <!-- ↓↓↓ 顶部 hero 区:品牌 + 导航 + 大标题 + 副标题 ↓↓↓ -->
             <!-- 这一整块在 text-lab.html 里几乎一字不差地又抄了一遍 -->
+            <!-- <article>:语义化标签,表示「一块独立完整的内容」。
+                 class 挂了两个:
+                   hero-stage   → hero.css 里定义它的内边距/最小高度/居中对齐
+                   panel-full   → layout.css 里定义它「占满 12 列」 -->
             <article class="hero-stage panel-full">
+
+              <!-- hero 顶行:品牌名在左,导航在右。对应 hero.css 里的 .hero-topline -->
               <div class="hero-topline">
+
+                <!-- 品牌名「zero to tech」。对应 hero.css 里的 .brand-eyebrow(眉题样式) -->
                 <p class="brand-eyebrow">zero to tech</p>
+
+                <!-- <nav>:语义化标签,表示「导航区」。
+                     挂了两个 class:
+                       inline-links → nav.css 里定义「横向排列 + 间距」
+                       hero-nav     → nav.css 里定义「靠右对齐」 -->
                 <nav class="inline-links hero-nav">
+
+                  <!-- 导航链接 1:指向本页(个人主页)。
+                       class="nav-link" 是暗号,给 nav.css 和 nav.js 用;
+                       href 是点击后跳转的目标页面。 -->
                   <a class="nav-link" href="index.html">个人主页</a>
+
+                  <!-- 导航链接 2:指向文字实验室页面。 -->
                   <a class="nav-link" href="text-lab.html">文字实验室</a>
+
                 </nav>
               </div>
+
+              <!-- hero 文案区:大标题 + 副标题。对应 hero.css 里的 .hero-copy -->
               <div class="hero-copy">
+
+                <!-- 大标题「关于我」。class="hero-display" 对应 hero.css 里定义的
+                     「超大字号 + 渐变色文字」效果。 -->
                 <h1 class="hero-display">关于我</h1>
+
+                <!-- 副标题。class="hero-subtitle" 对应 hero.css 里的副标题样式(灰字、较小) -->
                 <p class="hero-subtitle">项目，创意，灵感，心得，我的作品</p>
+
               </div>
             </article>
             <!-- ↑↑↑ hero 结束 ↑↑↑ -->
 
+            <!-- ↓↓↓ 第 2 块:作品卡片(介绍「文字实验室」这个作品)↓↓↓ -->
+            <!-- class 挂了 4 个,每个各管一件事:
+                 panel              → cards.css 里的卡片基础样式(白底 + 圆角 + 阴影)
+                 panel-full         → layout.css 里「占满 12 列」
+                 featured-work-panel→ cards.css 里作品卡的专属布局
+                 card               → cards.css 里初始状态 opacity:0(藏起来),
+                                      等着 js/cards.js 用 anime.js 把它淡入显示 -->
             <article class="panel panel-full featured-work-panel card">
+
+              <!-- 小标签「作品」。class="section-kicker" 对应 cards.css 里的小号灰色标签样式 -->
               <p class="section-kicker">作品</p>
+
+              <!-- 作品名「文字实验室」。class="featured-title" 对应 cards.css 里的大号标题样式 -->
               <p class="featured-title">文字实验室</p>
+
+              <!-- 作品简介。class="featured-copy" 对应 cards.css 里的简介文字样式 -->
               <p class="featured-copy">拼音和情绪，挖掘中文里的细节</p>
+
+              <!-- 跳转链接:点击进入 text-lab.html。class="featured-link" 对应 cards.css 里的链接样式 -->
               <a class="featured-link" href="text-lab.html">
+
+                <!-- 链接文字「打开作品」。class="featured-link-label" 对应 cards.css 里的蓝色链接文字样式 -->
                 <span class="featured-link-label">打开作品</span>
+
+                <!-- 一个箭头符号「›」。class="arrow" 对应 cards.css 里的箭头样式(蓝色、较大) -->
                 <span class="arrow">›</span>
+
               </a>
             </article>
 
+            <!-- ↓↓↓ 第 3 块:身份卡片(座右铭 + 正在学习)↓↓↓ -->
+            <!-- class 挂 4 个:
+                 panel         → 卡片基础样式
+                 panel-full    → 占满 12 列
+                 identity-panel→ cards.css 里身份卡的专属布局(内部两列)
+                 card          → 初始隐藏,等 JS 动画淡入 -->
             <article class="panel panel-full identity-panel card">
+
+              <!-- 身份卡里的第 1 项:座右铭。class="identity-item" 对应 cards.css 里每一项的样式 -->
               <div class="identity-item">
+
+                <!-- 小标签「座右铭」。section-kicker 同前,小号灰色标签 -->
                 <p class="section-kicker">座右铭</p>
+
+                <!-- 座右铭内容。挂了两个 class:
+                     identity-value → cards.css 里的普通值样式
+                     identity-quote → cards.css 里专门给「引文/格言」调的更细的样式 -->
                 <p class="identity-value identity-quote">已识乾坤大，尤怜草木青</p>
+
               </div>
+
+              <!-- 身份卡里的第 2 项:正在学习。 -->
               <div class="identity-item">
+
+                <!-- 小标签「正在学习」。 -->
                 <p class="section-kicker">正在学习</p>
+
+                <!-- 内容「零到全栈」。class="identity-value" 对应 cards.css 里的值样式 -->
                 <p class="identity-value">零到全栈</p>
+
               </div>
             </article>
 
@@ -62,9 +187,6 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/animejs@4/lib/anime.iife.min.js"></script>
-    <script src="js/cards.js"></script>
-    <script src="js/score.js"></script>
-    <script src="js/nav.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
