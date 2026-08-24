@@ -24,3 +24,8 @@ body {
 
 .panel-full { grid-column: span 12; }
 .panel-half { grid-column: span 6; }
+
+/* Grid 子项允许在两列中正确收缩，避免长文本把相邻卡片挤出网格。 */
+.dashboard-grid > .panel-half {
+  min-width: 0;
+}

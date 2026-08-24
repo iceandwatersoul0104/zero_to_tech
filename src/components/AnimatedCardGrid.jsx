@@ -9,6 +9,7 @@ export default function AnimatedCardGrid({ className, children }) {
   const ref = useRef(null);
 
   useEffect(() => {
+    if (!ref.current) return;
     const cards = ref.current.querySelectorAll(".card");
     animate(cards, {
       opacity: [0, 1],
