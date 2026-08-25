@@ -6,3 +6,4 @@ backend/__pycache__
 .vscode
 *.log
 *.pyc
+.env*
