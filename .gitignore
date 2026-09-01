@@ -7,3 +7,9 @@ backend/__pycache__
 *.log
 *.pyc
 .env*
+
+backend/.env
+backend/*.db
+
+build/
+dist/
