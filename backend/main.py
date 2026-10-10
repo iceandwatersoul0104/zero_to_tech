@@ -6,6 +6,12 @@ from pypinyin import lazy_pinyin, Style
 from snownlp import SnowNLP
 from storage import save_record, get_history,init_db
 from datetime import datetime, timezone
+import os
+from dotenv import load_dotenv
+
+load_dotenv()                        # ← 读同目录下的 .env
+
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS").split(",")
 
 init_db()  # 初始化数据库
 
@@ -13,7 +19,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_headers=["GET","POST"],
     allow_methods=["*"],
     allow_credentials=True,
